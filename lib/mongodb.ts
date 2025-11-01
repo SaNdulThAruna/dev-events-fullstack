@@ -9,7 +9,7 @@ interface MongooseCache {
 // Extend the global namespace to include our mongoose cache
 declare global {
   // eslint-disable-next-line no-var
-  var mongoose: MongooseCache | undefined;
+  var mongooseCache: MongooseCache | undefined;
 }
 
 // Get MongoDB URI from environment variables
@@ -23,14 +23,14 @@ if (!MONGODB_URI) {
 }
 
 // Initialize the cache on the global object to survive hot reloads in development
-const cached: MongooseCache = global.mongoose || {
+const cached: MongooseCache = global.mongooseCache || {
   conn: null,
   promise: null,
 };
 
 // Store the cache globally for development environment
-if (!global.mongoose) {
-  global.mongoose = cached;
+if (!global.mongooseCache) {
+  global.mongooseCache = cached;
 }
 
 /**
